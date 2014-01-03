@@ -1197,6 +1197,20 @@ msm8625_qrd7		MACH_MSM8625_QRD7	MSM8625_QRD7		4095
 msm8625_ffa		MACH_MSM8625_FFA	MSM8625_FFA		4166
 msm8625_evt		MACH_MSM8625_EVT	MSM8625_EVT		4193
 # ZTE Board Num by ZTE_BOOT_20120620 huang.yanjun
+<<<<<<< HEAD
+adams           MACH_ADAMS          ADAMS           6001
+baker           MACH_BAKER          BAKER           6002
+crater          MACH_CRATER         CRATER          6003
+dana            MACH_DANA           DANA            6004
+aurora          MACH_AURORA         AURORA          6005
+frosty          MACH_FROSTY         FROSTY          6006
+gordon          MACH_GORDON         GORDON          6007
+hayes           MACH_HAYES          HAYES           6008
+iliamna         MACH_ILIAMNA        ILIAMNA         6009
+jarvis          MACH_JARVIS         JARVIS          6010
+kiska           MACH_KISKA          KISKA           6011
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 apollo           MACH_APOLLO          APOLLO           7001
 warplte           MACH_WARPLTE         WARPLTE           7002
 becky            MACH_BECKY           BECKY            7003
@@ -1209,4 +1223,8 @@ nex           MACH_NEX          NEX           7010
 nestor          MACH_NESTOR         NESTOR          7011
 metis          MACH_METIS         METIS          7012
 oceanus          MACH_OCEANUS         OCEANUS          7013
+<<<<<<< HEAD
 stormer          MACH_STORMER         STORMER          7014
+=======
+stormer          MACH_STORMER         STORMER          7014
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a

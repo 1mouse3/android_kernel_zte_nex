@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+/* Copyright (c) 2011-2012, Code Aurora Forum. All rights reserved.
+=======
 /* Copyright (c) 2011-2012, The Linux Foundation. All rights reserved.
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -15,18 +19,70 @@
 #include <linux/ioport.h>
 #include <linux/platform_device.h>
 #include <linux/bootmem.h>
+<<<<<<< HEAD
+=======
 #include <linux/msm_ion.h>
 #include <linux/gpio.h>
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #include <asm/mach-types.h>
 #include <mach/msm_bus_board.h>
 #include <mach/msm_memtypes.h>
 #include <mach/board.h>
+<<<<<<< HEAD
+#include <mach/gpio.h>
+#include <mach/gpiomux.h>
+#include <linux/ion.h>
+#include <mach/ion.h>
+#include <mach/camera.h>
+
+/*
+ * Backlight control in FTM
+ */
+=======
 #include <mach/gpiomux.h>
 #include <mach/ion.h>
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #include <mach/socinfo.h>
 
 #include "devices.h"
 #include "board-8960.h"
+<<<<<<< HEAD
+int camera_is_working=0;
+int l2_should_enable=1;
+#ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
+#define MSM_FB_PRIM_BUF_SIZE \
+		(roundup((1920 * 1200 * 4), 4096) * 3) /* 4 bpp x 3 pages */
+#else
+#define MSM_FB_PRIM_BUF_SIZE \
+		(roundup((1920 * 1200 * 4), 4096) * 2) /* 4 bpp x 2 pages */
+#endif
+
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+#define MSM_FB_EXT_BUF_SIZE \
+		(roundup((1920 * 1088 * 2), 4096) * 1) /* 2 bpp x 1 page */
+#elif defined(CONFIG_FB_MSM_TVOUT)
+#define MSM_FB_EXT_BUF_SIZE \
+		(roundup((720 * 576 * 2), 4096) * 2) /* 2 bpp x 2 pages */
+#else
+#define MSM_FB_EXT_BUF_SIZE	0
+#endif
+
+/* Note: must be multiple of 4096 */
+#define MSM_FB_SIZE roundup(MSM_FB_PRIM_BUF_SIZE + MSM_FB_EXT_BUF_SIZE, 4096)
+
+#ifdef CONFIG_FB_MSM_OVERLAY0_WRITEBACK
+	/*#if defined(CONFIG_MACH_FROSTY )|| defined(CONFIG_MACH_DANA)|| defined(CONFIG_MACH_JARVIS)
+		#define MSM_FB_OVERLAY0_WRITEBACK_SIZE roundup((544 * 960 * 3 * 2), 4096)
+	#elif defined(CONFIG_MACH_AURORA) ||defined(CONFIG_MACH_HAYES)||defined(CONFIG_MACH_ILIAMNA)
+		#define MSM_FB_OVERLAY0_WRITEBACK_SIZE roundup((480 * 800 * 3 * 2), 4096)
+	#elif defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_KISKA)
+		#define MSM_FB_OVERLAY0_WRITEBACK_SIZE roundup((1280 * 736 * 3 * 2), 4096)
+	#else
+		#define MSM_FB_OVERLAY0_WRITEBACK_SIZE roundup((1280 * 736 * 3 * 2), 4096)
+	#endif*/
+#define MSM_FB_OVERLAY0_WRITEBACK_SIZE roundup((1920 * 1200 * 3 * 2), 4096)
+
+=======
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MSM_FB_PRIM_BUF_SIZE \
@@ -44,13 +100,18 @@
 #ifdef CONFIG_FB_MSM_OVERLAY0_WRITEBACK
 #define MSM_FB_OVERLAY0_WRITEBACK_SIZE \
 		roundup((roundup(1920, 32) * roundup(1200, 32) * 3 * 2), 4096)
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #else
 #define MSM_FB_OVERLAY0_WRITEBACK_SIZE (0)
 #endif  /* CONFIG_FB_MSM_OVERLAY0_WRITEBACK */
 
 #ifdef CONFIG_FB_MSM_OVERLAY1_WRITEBACK
+<<<<<<< HEAD
+#define MSM_FB_OVERLAY1_WRITEBACK_SIZE roundup((1920 * 1088 * 3 * 2), 4096)
+=======
 #define MSM_FB_OVERLAY1_WRITEBACK_SIZE \
 		roundup((roundup(1920, 32) * roundup(1080, 32) * 3 * 2), 4096)
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #else
 #define MSM_FB_OVERLAY1_WRITEBACK_SIZE (0)
 #endif  /* CONFIG_FB_MSM_OVERLAY1_WRITEBACK */
@@ -62,15 +123,27 @@
 #define MIPI_VIDEO_TOSHIBA_WSVGA_PANEL_NAME	"mipi_video_toshiba_wsvga"
 #define MIPI_VIDEO_TOSHIBA_WUXGA_PANEL_NAME	"mipi_video_toshiba_wuxga"
 #define MIPI_VIDEO_CHIMEI_WXGA_PANEL_NAME	"mipi_video_chimei_wxga"
+<<<<<<< HEAD
+#define MIPI_VIDEO_SIMULATOR_VGA_PANEL_NAME	"mipi_video_simulator_vga"
+#define MIPI_CMD_RENESAS_FWVGA_PANEL_NAME	"mipi_cmd_renesas_fwvga"
+=======
 #define MIPI_VIDEO_CHIMEI_WUXGA_PANEL_NAME	"mipi_video_chimei_wuxga"
 #define MIPI_VIDEO_SIMULATOR_VGA_PANEL_NAME	"mipi_video_simulator_vga"
 #define MIPI_CMD_RENESAS_FWVGA_PANEL_NAME	"mipi_cmd_renesas_fwvga"
 #define MIPI_VIDEO_ORISE_720P_PANEL_NAME	"mipi_video_orise_720p"
 #define MIPI_CMD_ORISE_720P_PANEL_NAME		"mipi_cmd_orise_720p"
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #define HDMI_PANEL_NAME	"hdmi_msm"
 #define TVOUT_PANEL_NAME	"tvout_msm"
 
 #ifdef CONFIG_FB_MSM_HDMI_AS_PRIMARY
+<<<<<<< HEAD
+unsigned char hdmi_is_primary = 1;
+#else
+unsigned char hdmi_is_primary;
+#endif
+
+=======
 static unsigned char hdmi_is_primary = 1;
 #else
 static unsigned char hdmi_is_primary;
@@ -81,17 +154,30 @@ unsigned char msm8960_hdmi_as_primary_selected(void)
 	return hdmi_is_primary;
 }
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static struct resource msm_fb_resources[] = {
 	{
 		.flags = IORESOURCE_DMA,
 	}
 };
 
+<<<<<<< HEAD
+#ifndef CONFIG_FB_MSM_MIPI_PANEL_DETECT
 static void set_mdp_clocks_for_wuxga(void);
+#endif
+=======
+static void set_mdp_clocks_for_wuxga(void);
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 static int msm_fb_detect_panel(const char *name)
 {
 	if (machine_is_msm8960_liquid()) {
+<<<<<<< HEAD
+		if (!strncmp(name, MIPI_VIDEO_CHIMEI_WXGA_PANEL_NAME,
+				strnlen(MIPI_VIDEO_CHIMEI_WXGA_PANEL_NAME,
+					PANEL_NAME_MAX_LEN)))
+			return 0;
+=======
 		u32 ver = socinfo_get_platform_version();
 		if (SOCINFO_VERSION_MAJOR(ver) == 3) {
 			if (!strncmp(name, MIPI_VIDEO_CHIMEI_WUXGA_PANEL_NAME,
@@ -106,14 +192,19 @@ static int msm_fb_detect_panel(const char *name)
 						PANEL_NAME_MAX_LEN)))
 				return 0;
 		}
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	} else {
 		if (!strncmp(name, MIPI_VIDEO_TOSHIBA_WSVGA_PANEL_NAME,
 				strnlen(MIPI_VIDEO_TOSHIBA_WSVGA_PANEL_NAME,
 					PANEL_NAME_MAX_LEN)))
 			return 0;
 
+<<<<<<< HEAD
+#ifndef CONFIG_FB_MSM_MIPI_PANEL_DETECT
+=======
 #if !defined(CONFIG_FB_MSM_LVDS_MIPI_PANEL_DETECT) && \
 	!defined(CONFIG_FB_MSM_MIPI_PANEL_DETECT)
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 		if (!strncmp(name, MIPI_VIDEO_NOVATEK_QHD_PANEL_NAME,
 				strnlen(MIPI_VIDEO_NOVATEK_QHD_PANEL_NAME,
 					PANEL_NAME_MAX_LEN)))
@@ -140,6 +231,8 @@ static int msm_fb_detect_panel(const char *name)
 			set_mdp_clocks_for_wuxga();
 			return 0;
 		}
+<<<<<<< HEAD
+=======
 
 		if (!strncmp(name, MIPI_VIDEO_ORISE_720P_PANEL_NAME,
 				strnlen(MIPI_VIDEO_ORISE_720P_PANEL_NAME,
@@ -150,16 +243,22 @@ static int msm_fb_detect_panel(const char *name)
 				strnlen(MIPI_CMD_ORISE_720P_PANEL_NAME,
 					PANEL_NAME_MAX_LEN)))
 			return 0;
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #endif
 	}
 
 	if (!strncmp(name, HDMI_PANEL_NAME,
 			strnlen(HDMI_PANEL_NAME,
+<<<<<<< HEAD
+				PANEL_NAME_MAX_LEN)))
+		return 0;
+=======
 				PANEL_NAME_MAX_LEN))) {
 		if (hdmi_is_primary)
 			set_mdp_clocks_for_wuxga();
 		return 0;
 	}
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 	if (!strncmp(name, TVOUT_PANEL_NAME,
 			strnlen(TVOUT_PANEL_NAME,
@@ -228,6 +327,12 @@ static void mipi_dsi_panel_pwm_cfg(void)
 
 static bool dsi_power_on;
 
+<<<<<<< HEAD
+#define Use_our_panel
+
+#ifndef Use_our_panel
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 /**
  * LiQUID panel on/off
  *
@@ -467,29 +572,390 @@ static int mipi_dsi_cdp_panel_power(int on)
 	}
 	return 0;
 }
+<<<<<<< HEAD
+#endif
+#ifdef Use_our_panel
+static int mipi_dsi_panel_power_our(int on)
+{
+	static struct regulator *REG_L8, *REG_L23;
+	static int gpio_rst,gpio_blk;
+	int rc;
+	static struct regulator *reg_l2;
+
+	pr_info("%s: on=%d\n", __func__, on);
+
+	gpio_rst = PM8921_GPIO_PM_TO_SYS(43); /* Displays Enable (rst_n)*/
+	gpio_blk = 12; /* Backlight PWM */
+
+	if (!dsi_power_on) {
+		reg_l2 = regulator_get(&msm_mipi_dsi1_device.dev,
+				"dsi_vdda");
+		if (IS_ERR(reg_l2)) {
+			pr_err("could not get 8921_l2, rc = %ld\n",
+				PTR_ERR(reg_l2));
+			return -ENODEV;
+		}
+
+		rc = regulator_set_voltage(reg_l2, 1200000, 1200000);
+		if (rc) {
+			pr_err("set_voltage l2 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+		
+		REG_L23 = regulator_get(&msm_mipi_dsi1_device.dev,
+				"dsi_vddio");
+		if (IS_ERR(REG_L23)) {
+			pr_err("could not get 8921_l23(IOVDD), rc = %ld\n",
+				PTR_ERR(REG_L23));
+			return -ENODEV;
+		}
+
+
+		REG_L8 = regulator_get(&msm_mipi_dsi1_device.dev,
+				"dsi_vdc");
+		if (IS_ERR(REG_L8)) {
+			pr_err("could not get 8921_L8(AVDD), rc = %ld\n",
+				PTR_ERR(REG_L8));
+			return -ENODEV;
+		}
+
+		rc = regulator_set_voltage(REG_L23, 1800000, 1800000);
+		if (rc) {
+			pr_err("set_voltage l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+
+		rc = regulator_set_voltage(REG_L8, 2800000, 3000000);
+		if (rc) {
+			pr_err("set_voltage l8 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+		rc = gpio_request(gpio_rst, "disp_rst_n");
+		if (rc) {
+			pr_err("request gpio pm_43 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+
+		rc = gpio_request(gpio_blk, "disp_backlight_pwm");
+		if (rc) {
+			pr_err("request gpio 12 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+
+		dsi_power_on = true;
+	}
+
+	if (on) {
+//delete by lijing 20120731
+#if defined CONFIG_MACH_FROSTY ||defined CONFIG_MACH_ILIAMNA
+		rc = regulator_set_optimum_mode(reg_l2, 100000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l2 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+#endif		
+		rc = regulator_set_optimum_mode(REG_L8, 100000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l8 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+		rc = regulator_set_optimum_mode(REG_L23, 100000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l23 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+if(l2_should_enable==1){
+		rc = regulator_enable(reg_l2);
+		if (rc) {
+			pr_err("enable l2 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+}
+		rc = regulator_enable(REG_L8);
+		if (rc) {
+			pr_err("enable l8 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+		rc = regulator_enable(REG_L23);
+		if (rc) {
+			pr_err("enable l23 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+#ifdef CONFIG_FB_MSM_MIPI_ZTE_SHARP_NT35516_QHD_PANEL
+		/* set reset pin before power enable */
+		msleep(12);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		usleep(20);
+		gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		usleep(40);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(20);
+#elif defined(CONFIG_FB_MSM_MIPI_ZTE_LEAD_NT35516_QHD_PANEL) 
+		/* set reset pin before power enable */
+		//gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		//msleep(30);
+		//gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		//msleep(40);
+		//gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		//msleep(50);  
+#elif defined(CONFIG_FB_MSM_MIPI_ZTE_YUSHUN_NT35516_LG_QHD_PANEL) 
+		/* set reset pin before power enable */
+		//gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		//msleep(30);
+		//gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		//msleep(40);
+		//gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		//msleep(50);  
+#elif defined(CONFIG_FB_MSM_MIPI_ZTE_NOVATEK_NT35510_WVGA_PANEL) 
+		/* set reset pin before power enable */
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(30);
+		gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		msleep(40);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(50);  
+#elif defined(CONFIG_FB_MSM_MIPI_LEAD_VIDEO_WVGA_PT_PANEL) 
+#if 0
+		/* set reset pin before power enable */
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(30);
+		gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		msleep(40);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(50);  
+#endif
+#elif defined(CONFIG_FB_MSM_MIPI_ZTE_LG4591_720HD_PANEL) 
+		/* set reset pin before power enable */
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(30);
+		gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		msleep(40);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(50);  
+#elif defined(CONFIG_FB_MSM_MIPI_ZTE_OTM_HD) 
+		/* set reset pin before power enable */
+#if 0
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(30);
+		gpio_set_value_cansleep(gpio_rst, 0); /* disp enable */
+		msleep(40);
+		gpio_set_value_cansleep(gpio_rst, 1); /* disp enable */
+		msleep(50);  
+#endif
+#else
+   #error I need an error here indicate unreset panel 
+#endif
+
+/*
+ * Backlight control in FTM
+ */
+  if (1 == socinfo_get_ftm_flag()) {
+        	#if( defined(CONFIG_MACH_FROSTY )|| defined(CONFIG_MACH_DANA)|| defined(CONFIG_MACH_AURORA) \
+	|| defined(CONFIG_MACH_JARVIS)||defined(CONFIG_MACH_HAYES)||defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_ILIAMNA)||defined(CONFIG_MACH_KISKA))
+	#else
+		    rc = gpio_direction_output(gpio_blk, 1);//pan
+		    #endif
+        } else {
+	#if( defined(CONFIG_MACH_FROSTY )|| defined(CONFIG_MACH_AURORA) \
+	|| defined(CONFIG_MACH_JARVIS)||defined(CONFIG_MACH_HAYES)||defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_ILIAMNA)|| defined(CONFIG_MACH_KISKA))
+	 #else
+		rc = gpio_direction_output(gpio_blk, 0);//pan
+	 #endif
+        }
+
+		if (rc) {
+			pr_err("%s: unable to set_direction for blk gpio [%d]\n",
+					__func__, gpio_blk);
+			return -ENODEV;
+		}
+
+		
+	} else {
+		gpio_set_value_cansleep(gpio_rst, 0);
+
+		rc = gpio_direction_output(gpio_blk, 0);
+		if (rc) {
+			pr_err("%s: unable to set_direction for blk gpio [%d]\n",
+					__func__, gpio_blk);
+			return -ENODEV;
+		}
+
+	
+		rc = regulator_disable(REG_L8);
+		if (rc) {
+			pr_err("disable reg_l8 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+
+		rc = regulator_disable(REG_L23);
+		if (rc) {
+			pr_err("disable reg_l23 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+#if 0
+#if 0
+		rc = regulator_set_optimum_mode(reg_l2, 9000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l2 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+
+#else
+		rc = regulator_disable(reg_l2);
+		if (rc) {
+			pr_err("disable reg_l2 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+		rc = regulator_set_optimum_mode(reg_l2, 100);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l2 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+#endif	
+#endif
+if(camera_is_working==0){
+		rc = regulator_disable(reg_l2);
+		if (rc) {
+			pr_err("disable reg_l2 failed, rc=%d\n", rc);
+			return -ENODEV;
+		}
+		l2_should_enable=1;
+
+	}else{
+		rc = regulator_set_optimum_mode(reg_l2, 9000);
+		if (rc < 0) {
+			pr_err("set_optimum_mode l2 failed, rc=%d\n", rc);
+			return -EINVAL;
+		}
+		l2_should_enable=0;
+	}
+}
+
+	return 0;
+}
+#endif
+=======
 
 static char mipi_dsi_splash_is_enabled(void);
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static int mipi_dsi_panel_power(int on)
 {
 	int ret;
 
 	pr_debug("%s: on=%d\n", __func__, on);
 
+<<<<<<< HEAD
+#ifdef Use_our_panel
+	ret = mipi_dsi_panel_power_our(on);
+#endif
+
+#ifndef Use_our_panel
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	if (machine_is_msm8960_liquid())
 		ret = mipi_dsi_liquid_panel_power(on);
 	else
 		ret = mipi_dsi_cdp_panel_power(on);
+<<<<<<< HEAD
+#endif
+=======
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	return ret;
 }
 
 static struct mipi_dsi_platform_data mipi_dsi_pdata = {
 	.vsync_gpio = MDP_VSYNC_GPIO,
 	.dsi_power_save = mipi_dsi_panel_power,
+<<<<<<< HEAD
+};
+
+#ifdef CONFIG_MSM_BUS_SCALING
+
+static struct msm_bus_vectors rotator_init_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_ROTATOR,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab = 0,
+		.ib = 0,
+	},
+};
+
+static struct msm_bus_vectors rotator_ui_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_ROTATOR,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab  = (1024 * 600 * 4 * 2 * 60),
+		.ib  = (1024 * 600 * 4 * 2 * 60 * 1.5),
+	},
+};
+
+static struct msm_bus_vectors rotator_vga_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_ROTATOR,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab  = (640 * 480 * 2 * 2 * 30),
+		.ib  = (640 * 480 * 2 * 2 * 30 * 1.5),
+	},
+};
+static struct msm_bus_vectors rotator_720p_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_ROTATOR,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab  = (1280 * 736 * 2 * 2 * 30),
+		.ib  = (1280 * 736 * 2 * 2 * 30 * 1.5),
+	},
+};
+
+static struct msm_bus_vectors rotator_1080p_vectors[] = {
+	{
+		.src = MSM_BUS_MASTER_ROTATOR,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab  = (1920 * 1088 * 2 * 2 * 30),
+		.ib  = (1920 * 1088 * 2 * 2 * 30 * 1.5),
+	},
+};
+
+static struct msm_bus_paths rotator_bus_scale_usecases[] = {
+	{
+		ARRAY_SIZE(rotator_init_vectors),
+		rotator_init_vectors,
+	},
+	{
+		ARRAY_SIZE(rotator_ui_vectors),
+		rotator_ui_vectors,
+	},
+	{
+		ARRAY_SIZE(rotator_vga_vectors),
+		rotator_vga_vectors,
+	},
+	{
+		ARRAY_SIZE(rotator_720p_vectors),
+		rotator_720p_vectors,
+	},
+	{
+		ARRAY_SIZE(rotator_1080p_vectors),
+		rotator_1080p_vectors,
+	},
+};
+
+struct msm_bus_scale_pdata rotator_bus_scale_pdata = {
+	rotator_bus_scale_usecases,
+	ARRAY_SIZE(rotator_bus_scale_usecases),
+	.name = "rotator",
+};
+
+=======
 	.splash_is_enabled = mipi_dsi_splash_is_enabled,
 };
 
 #ifdef CONFIG_MSM_BUS_SCALING
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static struct msm_bus_vectors mdp_init_vectors[] = {
 	{
 		.src = MSM_BUS_MASTER_MDP_PORT0,
@@ -499,6 +965,46 @@ static struct msm_bus_vectors mdp_init_vectors[] = {
 	},
 };
 
+<<<<<<< HEAD
+#ifdef CONFIG_FB_MSM_HDMI_AS_PRIMARY
+static struct msm_bus_vectors hdmi_as_primary_vectors[] = {
+	/* If HDMI is used as primary */
+	{
+		.src = MSM_BUS_MASTER_MDP_PORT0,
+		.dst = MSM_BUS_SLAVE_EBI_CH0,
+		.ab = 2000000000,
+		.ib = 2000000000,
+	},
+};
+static struct msm_bus_paths mdp_bus_scale_usecases[] = {
+	{
+		ARRAY_SIZE(mdp_init_vectors),
+		mdp_init_vectors,
+	},
+	{
+		ARRAY_SIZE(hdmi_as_primary_vectors),
+		hdmi_as_primary_vectors,
+	},
+	{
+		ARRAY_SIZE(hdmi_as_primary_vectors),
+		hdmi_as_primary_vectors,
+	},
+	{
+		ARRAY_SIZE(hdmi_as_primary_vectors),
+		hdmi_as_primary_vectors,
+	},
+	{
+		ARRAY_SIZE(hdmi_as_primary_vectors),
+		hdmi_as_primary_vectors,
+	},
+	{
+		ARRAY_SIZE(hdmi_as_primary_vectors),
+		hdmi_as_primary_vectors,
+	},
+};
+#else
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static struct msm_bus_vectors mdp_ui_vectors[] = {
 	{
 		.src = MSM_BUS_MASTER_MDP_PORT0,
@@ -564,6 +1070,10 @@ static struct msm_bus_paths mdp_bus_scale_usecases[] = {
 		mdp_1080p_vectors,
 	},
 };
+<<<<<<< HEAD
+#endif
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 static struct msm_bus_scale_pdata mdp_bus_scale_pdata = {
 	mdp_bus_scale_usecases,
@@ -573,9 +1083,24 @@ static struct msm_bus_scale_pdata mdp_bus_scale_pdata = {
 
 #endif
 
+<<<<<<< HEAD
+static int mdp_core_clk_rate_table[] = {
+	85330000,
+	128000000,
+	160000000,
+	200000000,
+};
+
+static struct msm_panel_common_pdata mdp_pdata = {
+	.gpio = MDP_VSYNC_GPIO,
+	.mdp_core_clk_rate = 85330000,
+	.mdp_core_clk_table = mdp_core_clk_rate_table,
+	.num_mdp_clk = ARRAY_SIZE(mdp_core_clk_rate_table),
+=======
 static struct msm_panel_common_pdata mdp_pdata = {
 	.gpio = MDP_VSYNC_GPIO,
 	.mdp_max_clk = 200000000,
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #ifdef CONFIG_MSM_BUS_SCALING
 	.mdp_bus_scale_table = &mdp_bus_scale_pdata,
 #endif
@@ -586,11 +1111,43 @@ static struct msm_panel_common_pdata mdp_pdata = {
 	.mem_hid = MEMTYPE_EBI1,
 #endif
 	.cont_splash_enabled = 0x01,
+<<<<<<< HEAD
+};
+
+#ifndef CONFIG_FB_MSM_MIPI_PANEL_DETECT
+/**
+ * Set MDP clocks to high frequency to avoid DSI underflow
+ * when using high resolution 1200x1920 WUXGA panels
+ */
+
+static void set_mdp_clocks_for_wuxga(void)
+{
+	int i;
+
+	mdp_ui_vectors[0].ab = 2000000000;
+	mdp_ui_vectors[0].ib = 2000000000;
+	mdp_vga_vectors[0].ab = 2000000000;
+	mdp_vga_vectors[0].ib = 2000000000;
+	mdp_720p_vectors[0].ab = 2000000000;
+	mdp_720p_vectors[0].ib = 2000000000;
+	mdp_1080p_vectors[0].ab = 2000000000;
+	mdp_1080p_vectors[0].ib = 2000000000;
+
+	mdp_pdata.mdp_core_clk_rate = 200000000;
+
+	for (i = 0; i < ARRAY_SIZE(mdp_core_clk_rate_table); i++)
+		mdp_core_clk_rate_table[i] = 200000000;
+
+}
+#endif
+
+=======
 	.splash_screen_addr = 0x00,
 	.splash_screen_size = 0x00,
 	.mdp_iommu_split_domain = 0,
 };
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 void __init msm8960_mdp_writeback(struct memtype_reserve* reserve_table)
 {
 	mdp_pdata.ov0_wb_size = MSM_FB_OVERLAY0_WRITEBACK_SIZE;
@@ -603,6 +1160,23 @@ void __init msm8960_mdp_writeback(struct memtype_reserve* reserve_table)
 #endif
 }
 
+<<<<<<< HEAD
+static struct platform_device mipi_dsi_renesas_panel_device = {
+	.name = "mipi_renesas",
+	.id = 0,
+};
+
+static struct platform_device mipi_dsi_simulator_panel_device = {
+	.name = "mipi_simulator",
+	.id = 0,
+};
+#if (defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_KISKA))
+	#define LPM_CHANNEL0 12
+#else
+	#define LPM_CHANNEL0 0
+#endif
+static int toshiba_gpio[] = {LPM_CHANNEL0,PM8921_GPIO_PM_TO_SYS(43)};
+=======
 static char mipi_dsi_splash_is_enabled(void)
 {
 	return mdp_pdata.cont_splash_enabled;
@@ -610,6 +1184,7 @@ static char mipi_dsi_splash_is_enabled(void)
 
 #define LPM_CHANNEL0 0
 static int toshiba_gpio[] = {LPM_CHANNEL0};
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 static struct mipi_dsi_panel_platform_data toshiba_pdata = {
 	.gpio = toshiba_gpio,
@@ -625,11 +1200,17 @@ static struct platform_device mipi_dsi_toshiba_panel_device = {
 };
 
 #define FPGA_3D_GPIO_CONFIG_ADDR	0xB5
+<<<<<<< HEAD
+static int dsi2lvds_gpio[2] = {
+	0,/* Backlight PWM-ID=0 for PMIC-GPIO#24 */
+	0x1F08 /* DSI2LVDS Bridge GPIO Output, mask=0x1f, out=0x08 */
+=======
 static int dsi2lvds_gpio[4] = {
 	0,/* Backlight PWM-ID=0 for PMIC-GPIO#24 */
 	0x1F08, /* DSI2LVDS Bridge GPIO Output, mask=0x1f, out=0x08 */
 	GPIO_LIQUID_EXPANDER_BASE+6,	/* TN Enable */
 	GPIO_LIQUID_EXPANDER_BASE+7,	/* TN Mode */
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	};
 
 static struct msm_panel_common_pdata mipi_dsi2lvds_pdata = {
@@ -671,11 +1252,14 @@ static struct platform_device mipi_dsi2lvds_bridge_device = {
 	.dev.platform_data = &mipi_dsi2lvds_pdata,
 };
 
+<<<<<<< HEAD
+=======
 static struct platform_device mipi_dsi_orise_panel_device = {
 	.name = "mipi_orise",
 	.id = 0,
 };
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
 static struct resource hdmi_msm_resources[] = {
 	{
@@ -796,6 +1380,17 @@ static int hdmi_enable_5v(int on)
 	static struct regulator *reg_8921_hdmi_mvs;	/* HDMI_5V */
 	static int prev_on;
 	int rc;
+<<<<<<< HEAD
+#ifdef CONFIG_MHL_Sii8334
+	return 0;
+#endif
+	if (on == prev_on)
+		return 0;
+
+	if (!reg_8921_hdmi_mvs)
+		reg_8921_hdmi_mvs = regulator_get(&hdmi_msm_device.dev,
+			"hdmi_mvs");
+=======
 
 	if (on == prev_on)
 		return 0;
@@ -810,6 +1405,7 @@ static int hdmi_enable_5v(int on)
 			return -ENODEV;
 		}
 	}
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 	if (on) {
 		rc = regulator_enable(reg_8921_hdmi_mvs);
@@ -910,6 +1506,11 @@ static int hdmi_core_power(int on, int show)
 	prev_on = on;
 
 	return 0;
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 }
 
 static int hdmi_gpio_config(int on)
@@ -988,6 +1589,8 @@ error:
 
 void __init msm8960_init_fb(void)
 {
+<<<<<<< HEAD
+=======
 	uint32_t soc_platform_version = socinfo_get_version();
 
 
@@ -997,6 +1600,7 @@ void __init msm8960_init_fb(void)
 	if (cpu_is_msm8960ab())
 		mdp_pdata.mdp_rev = MDP_REV_44;
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	platform_device_register(&msm_fb_device);
 
 #ifdef CONFIG_FB_MSM_WRITEBACK_MSM_PANEL
@@ -1004,19 +1608,43 @@ void __init msm8960_init_fb(void)
 	platform_device_register(&wfd_device);
 #endif
 
+<<<<<<< HEAD
+	if (machine_is_msm8960_sim())
+		platform_device_register(&mipi_dsi_simulator_panel_device);
+
+	if (machine_is_msm8960_rumi3())
+		platform_device_register(&mipi_dsi_renesas_panel_device);
+
+	if (!machine_is_msm8960_sim() && !machine_is_msm8960_rumi3()) {
+		platform_device_register(&mipi_dsi_novatek_panel_device);
+
+#ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
+		platform_device_register(&hdmi_msm_device);
+#endif
+	}
+=======
 	platform_device_register(&mipi_dsi_novatek_panel_device);
 	platform_device_register(&mipi_dsi_orise_panel_device);
 
 #ifdef CONFIG_FB_MSM_HDMI_MSM_PANEL
 	platform_device_register(&hdmi_msm_device);
 #endif
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 	if (machine_is_msm8960_liquid())
 		platform_device_register(&mipi_dsi2lvds_bridge_device);
 	else
 		platform_device_register(&mipi_dsi_toshiba_panel_device);
 
+<<<<<<< HEAD
+	if (machine_is_msm8x60_rumi3()) {
+		msm_fb_register_device("mdp", NULL);
+		mipi_dsi_pdata.target_type = 1;
+	} else
+		msm_fb_register_device("mdp", &mdp_pdata);
+=======
 	msm_fb_register_device("mdp", &mdp_pdata);
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	msm_fb_register_device("mipi_dsi", &mipi_dsi_pdata);
 #ifdef CONFIG_MSM_BUS_SCALING
 	msm_fb_register_device("dtv", &dtv_pdata);
@@ -1036,6 +1664,10 @@ void __init msm8960_allocate_fb_region(void)
 			size, addr, __pa(addr));
 }
 
+<<<<<<< HEAD
+void __init msm8960_set_display_params(char *prim_panel, char *ext_panel)
+{
+=======
 /**
  * Set MDP clocks to high frequency to avoid DSI underflow
  * when using high resolution 1200x1920 WUXGA panels
@@ -1060,12 +1692,15 @@ static void set_mdp_clocks_for_wuxga(void)
 void __init msm8960_set_display_params(char *prim_panel, char *ext_panel)
 {
 	int disable_splash = 0;
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	if (strnlen(prim_panel, PANEL_NAME_MAX_LEN)) {
 		strlcpy(msm_fb_pdata.prim_panel_name, prim_panel,
 			PANEL_NAME_MAX_LEN);
 		pr_debug("msm_fb_pdata.prim_panel_name %s\n",
 			msm_fb_pdata.prim_panel_name);
 
+<<<<<<< HEAD
+=======
 		if (strncmp((char *)msm_fb_pdata.prim_panel_name,
 			MIPI_VIDEO_TOSHIBA_WSVGA_PANEL_NAME,
 			strnlen(MIPI_VIDEO_TOSHIBA_WSVGA_PANEL_NAME,
@@ -1074,12 +1709,15 @@ void __init msm8960_set_display_params(char *prim_panel, char *ext_panel)
 			disable_splash = 1;
 		}
 
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 		if (!strncmp((char *)msm_fb_pdata.prim_panel_name,
 			HDMI_PANEL_NAME, strnlen(HDMI_PANEL_NAME,
 				PANEL_NAME_MAX_LEN))) {
 			pr_debug("HDMI is the primary display by"
 				" boot parameter\n");
 			hdmi_is_primary = 1;
+<<<<<<< HEAD
+=======
 			set_mdp_clocks_for_wuxga();
 		}
 		if (!strncmp((char *)msm_fb_pdata.prim_panel_name,
@@ -1087,6 +1725,7 @@ void __init msm8960_set_display_params(char *prim_panel, char *ext_panel)
 				strnlen(MIPI_VIDEO_TOSHIBA_WUXGA_PANEL_NAME,
 					PANEL_NAME_MAX_LEN))) {
 			set_mdp_clocks_for_wuxga();
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 		}
 	}
 	if (strnlen(ext_panel, PANEL_NAME_MAX_LEN)) {
@@ -1095,7 +1734,10 @@ void __init msm8960_set_display_params(char *prim_panel, char *ext_panel)
 		pr_debug("msm_fb_pdata.ext_panel_name %s\n",
 			msm_fb_pdata.ext_panel_name);
 	}
+<<<<<<< HEAD
+=======
 
 	if (disable_splash)
 		mdp_pdata.cont_splash_enabled = 0;
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 }

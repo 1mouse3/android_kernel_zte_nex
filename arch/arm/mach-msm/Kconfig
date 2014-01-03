@@ -831,6 +831,84 @@ config MACH_APOLLO
 # Support for CONFIG_ZTE_KMOD_AUTH_SEC by ZTE_BOOT_JIA_20130609 jia.jia
 # Add 'select ZTE_KMOD_AUTH_SEC' here
 #
+<<<<<<< HEAD
+
+config MACH_ADAMS
+	depends on ARCH_MSM8960
+	bool "ZTE ADAMS"
+	help
+	  Support for the ZTE MSM8960 Adams device.
+
+config MACH_BAKER
+	depends on ARCH_MSM8960
+	bool "ZTE BAKER"
+	help
+	  Support for the ZTE MSM8960 Baker device.
+
+config MACH_CRATER
+	depends on ARCH_MSM8960
+	bool "ZTE CRATER"
+	help
+	  Support for the ZTE MSM8960 Crater device.
+
+config MACH_DANA
+	depends on ARCH_MSM8960
+	bool "ZTE DANA"
+	help
+	  Support for the ZTE MSM8960 Dana device.
+
+config MACH_AURORA
+	depends on ARCH_MSM8960
+	bool "ZTE AURORA"
+	help
+	  Support for the ZTE MSM8960 AURORA device.
+
+config MACH_FROSTY
+	depends on ARCH_MSM8960
+	bool "ZTE FROSTY"
+	help
+	  Support for the ZTE MSM8960 Frosty device.
+
+config MACH_GORDON
+	depends on ARCH_MSM8960
+	bool "ZTE GORDON"
+	help
+	  Support for the ZTE MSM8960 Gordon device.
+
+config MACH_HAYES
+	depends on ARCH_MSM8960
+	bool "ZTE HAYES"
+	help
+	  Support for the ZTE MSM8960 Hayes device.
+
+config MACH_ILIAMNA
+	depends on ARCH_MSM8960
+	bool "ZTE ILIAMNA"
+	help
+	  Support for the ZTE MSM8960 Iliamna device.
+
+config MACH_JARVIS
+	depends on ARCH_MSM8960
+	bool "ZTE JARVIS"
+	help
+	  Support for the ZTE MSM8960 Jarvis device.
+
+config MACH_KISKA
+	depends on ARCH_MSM8960
+	bool "ZTE KISKA"
+	help
+	  Support for the ZTE MSM8960 Kiska device.
+
+config ZTE_SDLOG
+        depends on ARCH_MSM
+        depends on !MSM_STACKED_MEMORY
+        default y
+        bool "sdLog"
+        help
+          Support for sdlog.
+
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 config MACH_WARPLTE
 	depends on ARCH_MSM8930
 	bool "ZTE WARPLTE"

@@ -39,7 +39,11 @@ L                  L                   POWER DOWN
 
 
 /* ZTE_Audio_CJ_120530, chenjun, 2012-05-30, start */
+<<<<<<< HEAD
+#if defined(CONFIG_MACH_ELDEN) ||defined(CONFIG_MACH_GORDON) ||(CONFIG_MACH_AURORA) ||defined(CONFIG_MACH_GORDON) ||defined(CONFIG_MACH_HAYES) || defined(CONFIG_MACH_KISKA)
+=======
 #if defined(CONFIG_MACH_ELDEN) ||defined(CONFIG_MACH_GORDON) ||defined(CONFIG_MACH_HAYES)
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #define CONFIG_USE_SPK_BOOST 1
 #endif
 /* ZTE_Audio_CJ_120530, chenjun, 2012-05-30, end */

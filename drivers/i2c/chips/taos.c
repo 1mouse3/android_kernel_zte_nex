@@ -250,6 +250,19 @@ static u8 filter_count_param = 1;
 static u8 gain_param = 1;
 
 #if defined(CONFIG_MACH_APOLLO)
+<<<<<<< HEAD
+static u16 gain_trim_param = 25;
+#if defined(CONFIG_MACH_BLADE)
+static u16 gain_trim_param = 25;
+#elif defined(CONFIG_MACH_RACER2)
+static u16 gain_trim_param = 50;
+#elif defined(CONFIG_MACH_SKATE)
+static u16 gain_trim_param = 240;
+#elif defined(CONFIG_MACH_ROAMER)
+static u16 gain_trim_param = 5;
+#elif defined(CONFIG_MACH_BLADE2)
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static u16 gain_trim_param = 100;
 #elif defined(CONFIG_MACH_DEMETER)
 static u16 gain_trim_param = 180;
@@ -263,6 +276,15 @@ static u16 gain_trim_param = 250;
 static u16 gain_trim_param = 150;
 #elif defined(CONFIG_MACH_OCEANUS)
 static u16 gain_trim_param = 160;
+<<<<<<< HEAD
+#elif defined(CONFIG_MACH_DANA)
+static u16 gain_trim_param = 152;
+#elif defined(CONFIG_MACH_ELDEN)
+static u16 gain_trim_param = 200;
+#elif defined(CONFIG_MACH_JARVIS)
+static u16 gain_trim_param = 200;
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 #else
 static u16 gain_trim_param = 25; //this value is set according to specific device
 #endif

@@ -106,8 +106,26 @@ static struct pm8xxx_gpio_init pm8921_gpios[] __initdata = {
 	PM8XXX_GPIO_DISABLE(22),			 /* Disable NFC */
 	PM8XXX_GPIO_OUTPUT_FUNC(25, 0, PM_GPIO_FUNC_2),	 /* TN_CLK */
 	PM8XXX_GPIO_INPUT(26,	    PM_GPIO_PULL_UP_30), /* SD_CARD_DET_N */
+<<<<<<< HEAD
+	PM8XXX_GPIO_INPUT(36, PM_GPIO_PULL_NO),
+#if( defined(CONFIG_MACH_FROSTY )|| defined(CONFIG_MACH_DANA)|| defined(CONFIG_MACH_ELDEN) \
+|| defined(CONFIG_MACH_JARVIS)||defined(CONFIG_MACH_HAYES)||defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_ILIAMNA) ||defined(CONFIG_MACH_KISKA))
+#else
+	PM8XXX_GPIO_OUTPUT(43, 1),                       /* DISP_RESET_N */
+#endif
+	PM8XXX_GPIO_OUTPUT(42, 0),                      /* USB 5V reg enable */
+#ifdef CONFIG_USE_BCM4330
+	PM8XXX_GPIO_OUTPUT_FUNC(44,	 0, PM_GPIO_FUNC_1),
+#endif	
+#ifdef CONFIG_MACH_FROSTY
+#ifdef CONFIG_FLSH_ADP1650
+   PM8XXX_GPIO_OUTPUT(6, 1),
+#endif
+#endif	 
+=======
 	PM8XXX_GPIO_OUTPUT(43, 1),                       /* DISP_RESET_N */
 	PM8XXX_GPIO_OUTPUT(42, 0),                      /* USB 5V reg enable */
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	/* TABLA CODEC RESET */
 	PM8XXX_GPIO_OUTPUT_STRENGTH(34, 0, PM_GPIO_STRENGTH_MED)
 };
@@ -115,9 +133,18 @@ static struct pm8xxx_gpio_init pm8921_gpios[] __initdata = {
 /* Initial PM8921 MPP configurations */
 static struct pm8xxx_mpp_init pm8921_mpps[] __initdata = {
 	/* External 5V regulator enable; shared by HDMI and USB_OTG switches. */
+<<<<<<< HEAD
+#if 0	
+	PM8XXX_MPP_INIT(7, D_INPUT, PM8921_MPP_DIG_LEVEL_VPH, DIN_TO_INT),
+#else
+      PM8XXX_MPP_INIT(PM8XXX_AMUX_MPP_7, D_OUTPUT, PM8921_MPP_DIG_LEVEL_S4, DOUT_CTRL_LOW), 
+#endif
+	PM8XXX_MPP_INIT(PM8XXX_AMUX_MPP_8, A_INPUT, PM8XXX_MPP_AIN_AMUX_CH8, DOUT_CTRL_LOW),
+=======
 	PM8XXX_MPP_INIT(7, D_INPUT, PM8921_MPP_DIG_LEVEL_VPH, DIN_TO_INT),
 	PM8XXX_MPP_INIT(PM8XXX_AMUX_MPP_8, A_INPUT, PM8XXX_MPP_AIN_AMUX_CH8,
 								DOUT_CTRL_LOW),
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 };
 
 void __init msm8960_pm8921_gpio_mpp_init(void)
@@ -207,6 +234,10 @@ static struct pm8xxx_mpp_platform_data pm8xxx_mpp_pdata __devinitdata = {
 
 static struct pm8xxx_rtc_platform_data pm8xxx_rtc_pdata __devinitdata = {
 	.rtc_write_enable       = false,
+<<<<<<< HEAD
+	//.rtc_alarm_powerup	= true,  
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.rtc_alarm_powerup	= false,
 };
 
@@ -245,14 +276,44 @@ static struct pm8xxx_keypad_platform_data keypad_data_liquid = {
 	.keymap_data            = &keymap_data_liquid,
 };
 
+<<<<<<< HEAD
+#ifdef CONFIG_MACH_BAKER
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEUP),
+	KEY(0, 1, KEY_VOLUMEDOWN),
+	KEY(1, 0, KEY_CAMERA_FOCUS),
+	KEY(1, 2, KEY_CAMERA_SNAPSHOT),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
 
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+
+#elif defined CONFIG_MACH_ADAMS
+=======
+
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static const unsigned int keymap[] = {
 	KEY(0, 0, KEY_VOLUMEUP),
 	KEY(0, 1, KEY_VOLUMEDOWN),
 	KEY(0, 2, KEY_CAMERA_FOCUS),
 	KEY(0, 3, KEY_CAMERA_SNAPSHOT),
 };
-
+<<<<<<< HEAD
 static struct matrix_keymap_data keymap_data = {
 	.keymap_size    = ARRAY_SIZE(keymap),
 	.keymap         = keymap,
@@ -271,6 +332,165 @@ static struct pm8xxx_keypad_platform_data keypad_data = {
 	.wakeup                 = 1,
 	.keymap_data            = &keymap_data,
 };
+#elif defined CONFIG_MACH_CRATER
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEUP),
+	KEY(0, 1, KEY_VOLUMEDOWN),
+	KEY(1, 2, KEY_CAMERA_SNAPSHOT),
+	KEY(1, 3, KEY_CAMERA_FOCUS),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+#elif defined CONFIG_MACH_FROSTY
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEUP),
+	KEY(0, 1, KEY_VOLUMEDOWN),
+
+};
+=======
+
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 1,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+<<<<<<< HEAD
+#elif defined CONFIG_MACH_GORDON
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEDOWN),
+	KEY(0, 1, KEY_VOLUMEUP),
+	KEY(1, 0, KEY_CAMERA_FOCUS),
+	KEY(1, 2, KEY_CAMERA_SNAPSHOT),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+#elif defined CONFIG_MACH_HAYES
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEDOWN),
+	KEY(0, 1, KEY_VOLUMEUP),
+	KEY(1, 0, KEY_CAMERA_FOCUS),
+	KEY(1, 2, KEY_CAMERA_SNAPSHOT),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+#elif defined (CONFIG_MACH_KISKA)
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEUP),
+	KEY(0, 1, KEY_VOLUMEDOWN),
+	KEY(1, 0, KEY_CAMERA_FOCUS),
+	KEY(1, 2, KEY_CAMERA_SNAPSHOT),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+
+#else
+static const unsigned int keymap[] = {
+	KEY(0, 0, KEY_VOLUMEUP),
+	KEY(0, 1, KEY_VOLUMEDOWN),
+	KEY(1, 0, KEY_CAMERA_SNAPSHOT),
+	KEY(1, 2, KEY_CAMERA_FOCUS),
+};
+static struct matrix_keymap_data keymap_data = {
+	.keymap_size    = ARRAY_SIZE(keymap),
+	.keymap         = keymap,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 2,
+	.num_cols               = 5,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data,
+};
+
+#endif
+
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 
 static const unsigned int keymap_sim[] = {
 	KEY(0, 0, KEY_7),
@@ -386,6 +606,28 @@ static const unsigned int keymap_sim[] = {
 	KEY(0, 3, KEY_CAMERA_FOCUS),
 };
 
+<<<<<<< HEAD
+static struct matrix_keymap_data keymap_data_sim = {
+	.keymap_size    = ARRAY_SIZE(keymap_sim),
+	.keymap         = keymap_sim,
+};
+
+static struct pm8xxx_keypad_platform_data keypad_data_sim = {
+	.input_name             = "keypad_8960",
+	.input_phys_device      = "keypad_8960/input0",
+	.num_rows               = 12,
+	.num_cols               = 8,
+	.rows_gpio_start	= PM8921_GPIO_PM_TO_SYS(9),
+	.cols_gpio_start	= PM8921_GPIO_PM_TO_SYS(1),
+	.debounce_ms            = 15,
+	.scan_delay_ms          = 32,
+	.row_hold_ns            = 91500,
+	.wakeup                 = 1,
+	.keymap_data            = &keymap_data_sim,
+};
+
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static int pm8921_therm_mitigation[] = {
 	1100,
 	700,
@@ -393,9 +635,20 @@ static int pm8921_therm_mitigation[] = {
 	325,
 };
 
+<<<<<<< HEAD
+#if defined(CONFIG_ZTE_BATTERY_GORDON_4350MV_1780MAH)||defined(CONFIG_ZTE_BATTERY_ELDEN_4350MV_1735MAH)||defined(CONFIG_ZTE_BATTERY_ILIAMNA_4350MV_1735MAH)||defined(CONFIG_ZTE_BATTERY_HAYES_4350MV_1735MAH) || defined(CONFIG_ZTE_BATTERY_KISKA_4350MV_1735MAH)
+#define MAX_VOLTAGE_MV 4350
+#else
+#define MAX_VOLTAGE_MV 4220
+#endif
+#define CHG_TERM_MA		100
+static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
+	.safety_time		= 360,  
+=======
 #define MAX_VOLTAGE_MV		4200
 #define CHG_TERM_MA		100
 static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.update_time		= 60000,
 	.max_voltage		= MAX_VOLTAGE_MV,
 	.min_voltage		= 3200,
@@ -415,6 +668,20 @@ static struct pm8921_charger_platform_data pm8921_chg_pdata __devinitdata = {
 	.warm_bat_voltage	= 4100,
 	.thermal_mitigation	= pm8921_therm_mitigation,
 	.thermal_levels		= ARRAY_SIZE(pm8921_therm_mitigation),
+<<<<<<< HEAD
+/*JEITA compliance ¨C (-10oC ~ 60oC),must fixed with hw Thermistor Pull-Up Resistors
+CHG_BATT_TEMP_THR_COLD = 80% --->-10oC
+CHG_BATT_TEMP_THR_HOT = 20%-----> 60oC
+*/
+  #if defined CONFIG_ZTE_NON_JEITA_COMPLIANCE
+	.cold_thr=PM_SMBC_BATT_TEMP_COLD_THR__LOW, // 70%  //45 degreeC
+  .hot_thr=PM_SMBC_BATT_TEMP_HOT_THR__HIGH,  // 35%   //0 degreeC
+  #else
+	.cold_thr=PM_SMBC_BATT_TEMP_COLD_THR__HIGH, // 80% 
+       .hot_thr=PM_SMBC_BATT_TEMP_HOT_THR__LOW,      // 20%
+  #endif
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.rconn_mohm		= 18,
 };
 
@@ -426,6 +693,13 @@ static struct pm8921_bms_platform_data pm8921_bms_pdata __devinitdata = {
 	.battery_type			= BATT_UNKNOWN,
 	.r_sense_uohm			= 10000,
 	.v_cutoff			= 3400,
+<<<<<<< HEAD
+	.r_sense		= 10,
+	.i_test			= 2500,
+	.v_failure		= 3000,
+	.calib_delay_ms		= 600000,
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.max_voltage_uv			= MAX_VOLTAGE_MV * 1000,
 	.rconn_mohm			= 18,
 	.shutdown_soc_valid_limit	= 20,
@@ -503,6 +777,13 @@ static struct led_info pm8921_led_info[] = {
 		.name			= "led:battery_full",
 		.default_trigger	= "battery-full",
 	},
+<<<<<<< HEAD
+	[2] = {
+		.name			= "button-backlight",
+		.default_trigger	= "backlight",
+	},
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 };
 
 static struct led_platform_data pm8921_led_core_pdata = {
@@ -510,6 +791,10 @@ static struct led_platform_data pm8921_led_core_pdata = {
 	.leds = pm8921_led_info,
 };
 
+<<<<<<< HEAD
+#if 0
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 static int pm8921_led0_pwm_duty_pcts[56] = {
 		1, 4, 8, 12, 16, 20, 24, 28, 32, 36,
 		40, 44, 46, 52, 56, 60, 64, 68, 72, 76,
@@ -530,22 +815,69 @@ static struct pm8xxx_pwm_duty_cycles pm8921_led0_pwm_duty_cycles = {
 	.duty_ms = PM8XXX_LED_PWM_DUTY_MS,
 	.start_idx = 1,
 };
+<<<<<<< HEAD
+#endif
 
 static struct pm8xxx_led_config pm8921_led_configs[] = {
 	[0] = {
+	#if  !defined CONFIG_LED_PWM_CTRL
+	       .id = PM8XXX_ID_LED_0,
+	       .mode = PM8XXX_LED_MODE_MANUAL,
+		.max_current = PM8921_LC_LED_MAX_CURRENT,
+		.pwm_channel = -1,
+	#else
+=======
+
+static struct pm8xxx_led_config pm8921_led_configs[] = {
+	[0] = {
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 		.id = PM8XXX_ID_LED_0,
 		.mode = PM8XXX_LED_MODE_PWM2,
 		.max_current = PM8921_LC_LED_MAX_CURRENT,
 		.pwm_channel = 5,
 		.pwm_period_us = PM8XXX_LED_PWM_PERIOD,
 		.pwm_duty_cycles = &pm8921_led0_pwm_duty_cycles,
+<<<<<<< HEAD
+	#endif
 	},
 	[1] = {
+	#if !defined CONFIG_LED_PWM_CTRL
+	       .id = PM8XXX_ID_LED_1,
+	       .mode = PM8XXX_LED_MODE_MANUAL,
+		.max_current = PM8921_LC_LED_MAX_CURRENT,
+		.pwm_channel = -1,
+	#else
+=======
+	},
+	[1] = {
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 		.id = PM8XXX_ID_LED_1,
 		.mode = PM8XXX_LED_MODE_PWM1,
 		.max_current = PM8921_LC_LED_MAX_CURRENT,
 		.pwm_channel = 4,
 		.pwm_period_us = PM8XXX_LED_PWM_PERIOD,
+<<<<<<< HEAD
+	#endif	
+	},
+	
+	
+       [2] = {
+       #if defined(CONFIG_MACH_CRATER)||defined(CONFIG_MACH_ADAMS)||defined(CONFIG_MACH_DANA)|| \
+	   defined(CONFIG_MACH_ELDEN)||defined(CONFIG_MACH_GORDON)||defined(CONFIG_MACH_ILIAMNA)|| \
+	   defined(CONFIG_MACH_HAYES)
+	       .id = PM8XXX_ID_LED_2,
+	       .mode = PM8XXX_LED_MODE_MANUAL,
+		.max_current = 8, 
+		.pwm_channel = -1,
+	   #else
+		.id = PM8XXX_ID_LED_KB_LIGHT,
+		.mode = PM8XXX_LED_MODE_PWM1,
+		.max_current = PM8921_LC_LED_MAX_CURRENT,
+		.pwm_channel = 3,
+		.pwm_period_us = PM8XXX_LED_PWM_PERIOD,
+	   #endif
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	},
 };
 
@@ -555,7 +887,18 @@ static struct pm8xxx_led_platform_data pm8xxx_leds_pdata = {
 		.num_configs = ARRAY_SIZE(pm8921_led_configs),
 };
 
+<<<<<<< HEAD
+static struct pm8xxx_vibrator_platform_data pm8xxx_vib_pdata = {
+	.initial_vibrate_ms  = 500,
+	.level_mV = 2800,
+	.max_timeout_ms = 15000,
+};
+
 static struct pm8xxx_ccadc_platform_data pm8xxx_ccadc_pdata = {
+	.r_sense		= 10,
+=======
+static struct pm8xxx_ccadc_platform_data pm8xxx_ccadc_pdata = {
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.r_sense_uohm		= 10000,
 	.calib_delay_ms		= 600000,
 };
@@ -585,6 +928,10 @@ static struct pm8921_platform_data pm8921_platform_data __devinitdata = {
 	.adc_pdata		= &pm8xxx_adc_pdata,
 	.leds_pdata		= &pm8xxx_leds_pdata,
 	.ccadc_pdata		= &pm8xxx_ccadc_pdata,
+<<<<<<< HEAD
+	.vibrator_pdata      =&pm8xxx_vib_pdata,
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	.pwm_pdata		= &pm8xxx_pwm_pdata,
 };
 
@@ -603,6 +950,13 @@ void __init msm8960_init_pmic(void)
 				&msm8960_ssbi_pm8921_pdata;
 	pm8921_platform_data.num_regulators = msm_pm8921_regulator_pdata_len;
 
+<<<<<<< HEAD
+	/* Simulator supports a QWERTY keypad */
+	if (machine_is_msm8960_sim())
+		pm8921_platform_data.keypad_pdata = &keypad_data_sim;
+
+=======
+>>>>>>> 0e0eac3f3870f4f10d1336a55e88ef408f43987a
 	if (machine_is_msm8960_liquid()) {
 		pm8921_platform_data.keypad_pdata = &keypad_data_liquid;
 		pm8921_platform_data.leds_pdata = &pm8xxx_leds_pdata_liquid;
